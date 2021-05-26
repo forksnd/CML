@@ -2,6 +2,15 @@
 # @@COPYRIGHT@@
 #*-------------------------------------------------------------------------
 
+if(MSVC AND NOT BUILD_SHARED_LIBS)
+  set(CMAKE_MSVC_RUNTIME_LIBRARY MultiThreaded$<$<CONFIG:Debug>:Debug>)
+endif()
+
+# Put test binraries into a convenient directory, if not already set:
+if(NOT CMAKE_RUNTIME_OUTPUT_DIRECTORY)
+  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+endif()
+
 # Need the test macros:
 include(CMLTestMacros)
 
@@ -28,3 +37,7 @@ add_subdirectory(mathlib)
 
 # util tests:
 add_subdirectory(util)
+
+#if(CML_BUILD_TIMING)
+  add_subdirectory(timing)
+#endif()
