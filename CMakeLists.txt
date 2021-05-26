@@ -2,6 +2,16 @@
 # @@COPYRIGHT@@
 #*-------------------------------------------------------------------------
 
+# Build options:
+
+# Build tests if requested:
+option(CML_BUILD_TESTING "Build CML tests" OFF)
+
+# CMAKE_MSVC_RUNTIME_LIBRARY
+if(MSVC AND CML_BUILD_TESTING)
+  cmake_policy(SET CMP0091 NEW)
+endif()
+
 # Set the minimum CMake version:
 cmake_minimum_required(VERSION 3.15)
 
@@ -35,8 +45,6 @@ message(STATUS "Building CML ${CML_VERSION}")
 # Create the CML interface library: 
 include(CML.cmake)
 
-# Build tests if requested:
-option(CML_BUILD_TESTING "Build CML tests" OFF)
 if(CML_BUILD_TESTING)
   enable_testing()
   add_subdirectory(tests)
